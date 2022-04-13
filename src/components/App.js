@@ -4,6 +4,15 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import axios from 'axios';
+import apiKey from './config';
+
+
+// Components
+import Nav from './Nav';
+import PhotoContainer from './PhotoContainer';
+import NotFound from './NotFound';
+import SearchForm from './SearchForm';
 
 function App() {
   return (
