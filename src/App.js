@@ -7,16 +7,15 @@ import {
 import axios from 'axios';
 import apiKey from './config';
 
-
-//Flickr Api
-const photoKey = apiKey;
-
 // Components
 import Nav from './components/Nav';
 import PhotoContainer from './components/PhotoContainer';
 import NotFound from './components/NotFound';
 import SearchForm from './components/SearchForm';
 import { render } from "express/lib/response";
+
+//Flickr Api
+const photoKey = apiKey;
 
 class App extends Component {
   constructor () {
@@ -39,15 +38,15 @@ class App extends Component {
   }
 
   performSearch = (query) => {
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${photoApiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${photoKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
       .then(response => {
         if(query === 'sun') {
           this.setState ({
-            sun: responds.data.photos.photo,
+            sun: response.data.photos.photo,
             loading: false
           })
         } if(query === 'sun') {
-          this.setState({ sun: responds.data.photos.photo })
+          this.setState({ sun: response.data.photos.photo })
         } if(query === 'moon') {
           this.setState({ moon: response.data.photos.photo })
         } if(query === 'clouds') {
@@ -67,12 +66,12 @@ class App extends Component {
           <h1>Phtoto Gallery that uses Flickr and React.js</h1>
         <searchBar onSearch={this.performSearch} />
         <Nav />
-        <Switch>
-          <Route path="/sun" render={() => <Photo photos={this.state.sun} isLoading={this.state.isLoading} />} />
-          <Route path="/moon" render={() => <Photo photos={this.state.moon} isLoading={this.state.isLoading} />} />
-          <Route path="/clouds" render={() => <Photo photos={this.state.clouds} isLoading={this.state.isLoading} />} />
-          <Rout component={NotFound} />
-        </Switch>
+        <Routes>
+          <Route path="/sun" render={() => <PhotoContainer photos={this.state.sun} isLoading={this.state.isLoading} />} />
+          <Route path="/moon" render={() => <PhotoContainer photos={this.state.moon} isLoading={this.state.isLoading} />} />
+          <Route path="/clouds" render={() => <PhotoContainer photos={this.state.clouds} isLoading={this.state.isLoading} />} />
+          <Route component={NotFound} />
+        </Routes>
         </div>
       </BrowserRouter>
     );
@@ -80,7 +79,5 @@ class App extends Component {
   }
 
 }
-
-
 
 export default App;

@@ -6,3 +6,5 @@ const notFound = () => {
                 <p>Someting went wrong. Please try again.</p>
            </li>
 };
+
+export default notFound;
