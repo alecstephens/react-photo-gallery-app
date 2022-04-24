@@ -66,12 +66,12 @@ class App extends Component {
           <h1>Phtoto Gallery that uses Flickr and React.js</h1>
         <searchBar onSearch={this.performSearch} />
         <Nav />
-        <Routes>
+        <Switch>
           <Route path="/sun" render={() => <PhotoContainer photos={this.state.sun} isLoading={this.state.isLoading} />} />
           <Route path="/moon" render={() => <PhotoContainer photos={this.state.moon} isLoading={this.state.isLoading} />} />
           <Route path="/clouds" render={() => <PhotoContainer photos={this.state.clouds} isLoading={this.state.isLoading} />} />
           <Route component={NotFound} />
-        </Routes>
+        </Switch>
         </div>
       </BrowserRouter>
     );
